@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainwave clone</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('https://images.pexels.com/photos/20376398/pexels-photo-20376398/free-photo-of-blue-planet-in-galaxy.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); /* Background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white; /* Black theme text color */
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(8, 2, 2, 0.8); /* Semi-transparent background for the navbar */
+            padding: 10px 20px;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .left-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .brand-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .center-section .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 30px; /* Increased the gap between nav items */
+        }
+
+        .nav-links li {
+            display: inline;
+            
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            
+        }
+
+        .nav-links a:hover {
+            color: #9d0ee5;
+            
+        }
+
+        .nav-button {
+            background-color: #000000;
+            border: 1px solid white;
+            border-top-right-radius: 25px;
+            color: white;
+            padding: 10px 15px;
+            margin-left: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .nav-button.sign-in {
+            --border-radius: 10px;
+            --border-width: 2px;
+            appearance: none;
+            padding: 0.6em 1.2em; /* Reduced padding */
+            background-color: #212121;
+            font-family: "Roboto", Arial, "Segoe UI", sans-serif;
+            font-size: 16px; /* Reduced font size */
+            font-weight: 500;
+            color: #fff;
+            border: 0;
+            border-radius: var(--border-radius);
+            z-index: 2;
+        }
+
+        .nav-button.sign-in::after {
+            --m-i: linear-gradient(#000, #000);
+            --m-o: content-box, padding-box;
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            padding: var(--border-width);
+            border-radius: var(--border-radius);
+            background-image: conic-gradient(
+                #488cfb,
+                #29dbbc,
+                #ddf505,
+                #ff9f0e,
+                #e440bb,
+                #655adc,
+                #488cfb
+            );
+            -webkit-mask-image: var(--m-i), var(--m-i);
+            mask-image: var(--m-i), var(--m-i);
+            -webkit-mask-origin: var(--m-o);
+            mask-origin: var(--m-o);
+            -webkit-mask-clip: var(--m-o);
+            mask-clip: var(--m-o);
+            mask-composite: exclude;
+            -webkit-mask-composite: destination-out;
+            filter: hue-rotate(0);
+            animation: rotate-hue linear 500ms infinite;
+            animation-play-state: paused;
+        }
+
+        .nav-button.sign-in:hover::after {
+            animation-play-state: running;
+        }
+
+        @keyframes rotate-hue {
+            to {
+                filter: hue-rotate(1turn);
+            }
+        }
+
+        .main-content {
+            text-align: center;
+            margin-top: 6%;
+        }
+
+        .main-content h1 {
+            font-size: 45px;
+            margin: 0; /* Removed margin */
+        }
+
+        .main-content p {
+            margin-top: 10px; /* Removed margin */
+            font-size: 18px;
+            opacity: 80%;
+        }
+
+        .get-started-button {
+            background-color: #000000;
+            border: 1px solid rgb(235, 235, 235);
+            color: rgb(241, 236, 236);
+            padding: 10px 20px;
+            font-size: 18px;
+            border-top-right-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .get-started-button:hover {
+            color: #9d0ee5;
+            
+        }
+
+        .Ai {
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2); /* Glassy background effect */
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            width: 550px;
+            height: 350px;
+            backdrop-filter: blur(10px); /* Glassy effect */
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-left: auto; /* Centering the div */
+            margin-right: auto; /* Centering the div */
+        }
+
+        .new-div-image {
+            max-width: 100%;
+            height: 600px;
+            border-radius: 10px;
+        }
+
+        .banner {
+             display: flex; 
+             justify-content: center;
+             align-items: center; 
+             height: 40px; 
+             background-color: rgba(105, 99, 99, 0.61); 
+             padding: 0 10px;
+             margin-top: 50px;
+             margin-bottom: 50px;
+            
+            } 
+            .logo-item { 
+                display: flex; 
+                align-items: center; 
+                margin-right: 8rem; 
+                
+            } 
+            .logo-item img { 
+                height: 30px; /* Adjust as needed */ 
+                margin-right: 5px;
+             } 
+            .logo-item span {
+             font-size: 20px; color: #f2efef;
+            }
+
+        .card-container {
+             display: grid;
+             grid-template-columns: 500px 500px;
+             margin-top: 20px;
+             justify-content: space-around;
+             gap: .5rem; /* Added space between the cards */
+             margin-bottom: 3%;
+            }           
+
+        .card {
+             background-color: rgba(1, 1, 1, 0.2); /* Glassy effect */
+             padding: 20px;
+             border-radius: 10px;
+             text-align: left;
+             color: white;
+             backdrop-filter: blur(10px);
+             border: 1px solid rgba(255, 255, 255, 0.3);
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+             width: 80%; /* Full width of the column */
+             height: 300px; /* Increased height of the card */
+             display: flex;
+             flex-direction: column;
+             justify-content: space-between;
+            }
+
+        .card-title {
+            margin-bottom: auto;
+            font-size: 26px;
+            font-weight: bold;
+            }
+
+        .card-explanation {
+            font-size: 20px;
+            margin-top: auto;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 90px;
+            }
+
+        .message-icon {
+            height: 24px;
+            width: 24px;
+            }
+
+        .explore-button {
+            background-color: #ffffff;
+            border: 1px solid black;
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+        .secondTitle h1{
+                text-align: center;
+                font-size: 30;
+                margin-top: 3%;
+                margin-bottom: 20px;
+                margin: 0;
+
+            }
+        .secondTitle p{
+            text-align: center;
+            font-size: 20;
+            opacity: 80%;
+            margin: 0;
+            
+            
+            
+        }
+    
+            .AiImage {
+                display: flex;
+                justify-content: center; /* Horizontally center */
+                align-items: center;    /* Vertically center */
+                width: 100%;            /* Ensure the container takes full width */
+                height: 500px;          /* Set a fixed height for the container */
+                margin-top: 4%;  
+                margin-bottom: 4%;      
+            }
+        .AiImage img {
+                max-width: 100%;        /* Ensure the image scales properly */
+                max-height: 100%;       /* Ensure the image fits within the container */
+                border: .5rem solid white;
+                }
+
+
+    .pricing-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    margin-bottom: 2%;
+}
+
+.card {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.5rem;
+    background-color: rgba(0, 0, 0, 1);
+    padding: 1.5rem;
+   overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.price {
+    font-size: 2rem;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: -0.025em;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.lists {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 0.75rem;
+    row-gap: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgba(255, 255, 255, 1);
+
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.list i {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 1);
+}
+
+.list span {
+    margin-left: 1rem;
+}
+
+.action {
+    margin-top: 1rem;
+    width: 80%;
+    border: 2px solid rgba(255, 255, 255, 1);
+    border-radius: 9999px;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 0.625rem 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgba(0, 0, 0, 1);
+    outline: none;
+    transition: all .2s ease;
+}
+
+.action:hover {
+    color: rgba(255, 255, 255, 1);
+    background-color: transparent;
+}
+@media (max-width: 768px) {
+            .card {
+                padding: 1rem;
+            }
+        }
+
+        .footer {
+        background-color: #000000;
+        color: white;
+        padding: 20px;
+    }
+    
+    .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap; /* Allows wrapping */
+    }
+    
+    .footer-left {
+        font-size: 1rem;
+    }
+    
+    .footer-right {
+        display: flex;
+        
+        gap: 1rem;
+    }
+    
+    .social-icon {
+        color: white;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: color 0.3s;
+        
+    }
+    
+    .social-icon:hover {
+        color: #6813c3;
+    }
+    
+    @media (max-width: 600px) {
+        .footer-content {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    
+        .footer-right {
+            margin-top: 10px;
+            justify-content: flex-start;
+        }
+    }
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="left-section">
+            <img src="your-logo-url-here" alt="Logo" class="logo">
+            <span class="brand-text">Brainwave</span>
+        </div>
+        <div class="center-section">
+            <ul class="nav-links">
+                <li><a href="#">Feature</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">How to Use</a></li>
+                <li><a href="#">Roadmap</a></li>
+            </ul>
+        </div>
+        <div class="right-section">
+            <button class="nav-button">New Account</button>
+            <button class="nav-button sign-in">Sign In</button>
+        </div>
+    </nav>
+    <div>
+        <div class="main-content">
+            <h1>Explore the Possibilities <br>of AI Chatting with Brainwave</h1>
+            <p>Unleash the power of AI within Brainwave. Upgrade your productivity <br>with Brainwave, the open AI chat app.</p>
+            <button class="get-started-button">Get Started</button>
+            <div class="Ai">
+                <div class="new-div-image"><img src="https://t4.ftcdn.net/jpg/05/64/70/29/360_F_564702941_ixrcUDCnT3Fz9KAKGfFuLvynZCzWIqZw.jpg" alt="Roboat image"></div>
+            </div>
+        <div class="banner">
+             <div class="logo-item">
+                <img src="logo1.png" alt=""> 
+                <span>Your Logo</span> 
+            </div>
+             <div class="logo-item"> 
+                <img src="logo2.png" alt="">
+                <span>Your Logo</span>
+             </div>
+             <div class="logo-item"> 
+                <img src="logo3.png" alt=""> 
+                <span>Your Logo</span>
+              </div> 
+            <div class="logo-item"> 
+                 <img src="logo4.png" alt="">
+                <span>Your Logo</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-container">
+        <div class="card" id="card1">
+            <h2 class="card-title">Ask Anything</h2>
+            <p class="card-explanation"> Lets user quickly find answers to their questuions without having to search through multiple resources</p>
+            <div class="card-footer">
+                <i class="fas fa-comment"></i>
+                <button class="explore-button">Explore</button>
+            </div>
+        </div>
+        <div class="card" id="card2">
+            <h2 class="card-title">Improve Everyday</h2>
+            <p class="card-explanation">The app use natural language programming to understand user quires and provide accurate and relevent respnse.</p>
+            <div class="card-footer">
+                <i class="fa fa-maximize"></i>
+                <button class="explore-button">Explore</button>
+            </div>
+        </div>
+        <div class="card" id="card3">
+            <h2 class="card-title">Connect Everywhere</h2>
+            <p class="card-explanation">Connect with the Ai chatbox from anywhere,on any device making it more accsessable and convinient.</p>
+            <div class="card-footer">
+                <i class="fa fa-plug"></i>
+
+                <button class="explore-button">Explore</button>
+            </div>
+        </div>
+        <div class="card" id="card4">
+            <h2 class="card-title">Fast Responding</h2>
+            <p class="card-explanation">Lets user quickly find amswers to their question without having to search through multiple sources.</p>
+            <div class="card-footer">
+                <i class="fa fa-plug"></i>
+
+                <button class="explore-button">Explore</button>
+            </div>
+        </div>
+        <div class="card" id="card5">
+            <h2 class="card-title">Ask Anything</h2>
+            <p class="card-explanation">Lets user quickly find amswers to their question without having to search through multiple sources.</p>
+            <div class="card-footer">
+                <i class="fas fa-comment"></i>
+                <button class="explore-button">Explore</button>
+            </div>
+        </div>
+        <div class="card" id="card6">
+            <h2 class="card-title">Improve Everyday</h2>
+            <p class="card-explanation">The app use natural language programming to understand user quires and provide accurate and relevent respnse.</p>
+            <div class="card-footer">
+                <i class="fas fa-comment"></i>
+                <button class="explore-button">Explore</button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="seconddiv">
+        <div class="secondTitle">
+            <h1>
+                Generative AI made for creators.
+            </h1>
+            <p>Brainwave unlocks the potential of AI-powered applications            </p>
+        </div>
+    <div class="AiImage">
+            <img src="https://community.nasscom.in/sites/default/files/styles/960_x_600/public/media/images/AI%20vs%20Automation.jpg?itok=WYyrQXCj" alt="ai aimage">
+    </div>
+        
+
+    </div>
+    <hr>
+    
+    <div class="pricing-container">
+        <div class="card1 card">
+            <p class="price">$19</p>
+            <a href="#" class="action">Get started</a>
+            <ul class="lists">
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>An AI chatbot that can understand your queries</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>Personalized recommendations based on your preferences</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>Ability to explore the app and its features without any cost</span>
+                </li>
+               
+                
+            </ul>
+        </div>
+        <div class="card2 card">
+            <p class="price">$29</p>
+            <a href="#" class="action">Get started</a>
+            <ul class="lists">
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>An advanced AI chatbot that can understand complex queries</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>An analytics dashboard to track your conversations</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>Priority support to solve issues quickly</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>Analytics support</span>
+                </li>
+               
+            </ul>
+        </div>
+        <div class="card3 card">
+            <p class="price">$39</p>
+            <a href="#" class="action">Get started</a>
+            <ul class="lists">
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>An AI chatbot that can understand your queries</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>Limit free Access</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>Personalized recommendations based on your preferences</span>
+                </li>
+                <li class="list">
+                    <i class="fas fa-check"></i>
+                    <span>Ability to explore the app and its features without any costt</span>
+                </li>
+              
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>© 2025 Brainwave</p>
+            </div>
+            <div class="footer-right">
+                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
